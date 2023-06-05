@@ -147,7 +147,7 @@ body {
 }
 @media screen and (max-width:468px){
   body{
-    font-size:3vw;
+    font-size:3.25vw;
   }
   .calculator .buttons{
     gap:.3em;
