@@ -70,11 +70,9 @@ body {
   font-family: monospace;
   color: rgb(0, 0, 200);
   text-shadow: 0 0 2px white;
+  touch-action: none;
 }
 
-.display>div:focus {
-  outline: none;
-}
 
 .calculator .display:focus {
   transition: .15s;
@@ -147,7 +145,7 @@ body {
 }
 @media screen and (max-width:468px){
   body{
-    font-size:3.25vw;
+    font-size:3.75vw;
   }
   .calculator .buttons{
     gap:.3em;
