@@ -8,8 +8,8 @@ export default function Display() {
   displayRef = useRef(null)
   positionRef = useRef(0)
   return (
-    <div className="display" 
-      contentEditable="true" ref={displayRef} onClick={() => positionRef.current = getCaretPosition(displayRef.current)}>
+    <div className="display"
+      contentEditable="true" ref={displayRef} onClick={() => positionRef.current = getCaretPosition(displayRef.current)} onFocus={() => displayRef.current.blur()}>
     </div>
   )
 }
