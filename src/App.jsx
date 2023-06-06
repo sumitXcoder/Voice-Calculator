@@ -42,7 +42,7 @@ export default function App() {
               transcript = filterSpeech(transcript)
               textRef.current = transcript;
             }
-            displayRef.current.textContent = textRef.current
+            displayRef.current.textContent += textRef.current
           }
           else {
             var interimTranscripts = '';
