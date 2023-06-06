@@ -1,51 +1,54 @@
 body {
   font-size: 1em;
-  margin:0;
+  margin: 0;
   height: 100vh;
   background-color: #ddd;
 }
 
 .calculator {
-  font-size:1em;
+  font-size: 1em;
   position: absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 25em;
   aspect-ratio: 1/1.58;
   border: 1px solid black;
   background-color: #55677b;
   border-radius: .5em;
   box-shadow: 0 0 2em .2em rgba(0, 0, 0, .3);
-  user-select:none;
+  user-select: none;
 }
-.calculator .mic-off,.mic-on{
-  font-size:1.5em;
-  position:relative;
-  width:1.75em;
-  height:1.75em;
+
+.calculator .mic-off,
+.mic-on {
+  font-size: 1.5em;
+  position: relative;
+  width: 1.75em;
+  height: 1.75em;
   border: none;
   outline: 1px double white;
   border-radius: .25em;
-  margin:.5em;
-  background:#eee url("../mic-off.svg") no-repeat center;
-  background-size:1.25em;
-  cursor:pointer;
+  margin: .5em;
+  background: #eee url("../mic-off.svg") no-repeat center;
+  background-size: 1.25em;
+  cursor: pointer;
 }
 
-.calculator .mic-on{
-  background-image:url("../mic-on.svg");
-  background-size:1em;
-  outline:3px solid cyan;
+.calculator .mic-on {
+  background-image: url("../mic-on.svg");
+  background-size: 1em;
+  outline: 3px solid cyan;
 }
+
 .calculator>.sci {
-  font-size:1em;
+  font-size: 1em;
   float: right;
   width: 3em;
-  height:2.75em;
+  height: 2.75em;
   line-height: 1.1em;
   border: none;
-  color:black;
+  color: black;
   box-sizing: border-box;
   outline: 1px double white;
   background-color: #ddd;
@@ -56,7 +59,7 @@ body {
 
 .calculator>.display {
   font-size: 2.5em;
-  width:95%;
+  width: 95%;
   padding-top: 2.5em;
   text-align: right;
   background-color: #a0ac9d;
@@ -71,9 +74,8 @@ body {
   text-shadow: 0 0 2px white;
 }
 
-
 .calculator .display:focus {
-  outline:none;
+  outline: none;
 }
 
 .calculator>.buttons {
@@ -81,7 +83,7 @@ body {
   display: grid;
   width: 95%;
   aspect-ratio: 1/.9;
-  margin:.25em auto;
+  margin: .25em auto;
   gap: .25em;
   grid-template-columns: repeat(4, 1fr);
 }
@@ -89,27 +91,31 @@ body {
 .calculator .btn {
   position: relative;
   font-size: inherit;
-  font-weight:200;
-  background-image:linear-gradient(-45deg,#d5d5d5,#fafafa,#d5d5d5);
+  font-weight: 200;
+  background-image: linear-gradient(-45deg, #d5d5d5, #fafafa, #d5d5d5);
   border: none;
   border-radius: .2em;
   overflow: hidden;
   outline: 1px solid #fff;
-  padding:.1em;
+  padding: .1em;
 }
-.calculator .equal{
-  background-image:linear-gradient(-45deg,lightblue,rgb(235, 254, 254),lightblue);
+
+.calculator .equal {
+  background-image: linear-gradient(-45deg, lightblue, rgb(235, 254, 254), lightblue);
 }
-.calculator .remove{
-  color:transparent;
-  background:#fafafa url("../backspace.svg") no-repeat center;
-  background-size:1.2em;
+
+.calculator .remove {
+  color: transparent;
+  background: #fafafa url("../backspace.svg") no-repeat center;
+  background-size: 1.2em;
 }
-.calculator .clear{
-  background-image:none;
-  background-color:rgb(254, 186, 59);
-  color:white;
+
+.calculator .clear {
+  background-image: none;
+  background-color: rgb(254, 186, 59);
+  color: white;
 }
+
 .calculator .btn::before {
   content: "";
   display: block;
@@ -125,7 +131,7 @@ body {
 
 .calculator .btn:hover {
   transition: .25s;
-  scale:1.05;
+  scale: 1.05;
   outline: 2px double white;
   cursor: pointer;
 }
@@ -140,11 +146,13 @@ body {
   height: 0;
   opacity: 1;
 }
-@media screen and (max-width:468px){
-  body{
-    font-size:3.75vw;
+
+@media screen and (max-width:468px) {
+  body {
+    font-size: 3.75vw;
   }
-  .calculator .buttons{
-    gap:.3em;
+
+  .calculator .buttons {
+    gap: .3em;
   }
 }

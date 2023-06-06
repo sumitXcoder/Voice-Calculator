@@ -1,8 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import Buttons from './Buttons'
-import Display, { displayRef } from './Display'
+import Display, { displayRef} from './Display'
 import { values, sciValues, speechFilters } from './Values'
-
 export default function App() {
   const [currentButtons, setCurrentButtons] = useState(values)
   const [mic, setMic] = useState(false)
@@ -12,6 +11,7 @@ export default function App() {
   useEffect(() => {
     isTouchScreen.current = "ontouchstart" in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0
   }, [])
+
   function changeValues() {
     currentButtons === values ? setCurrentButtons(sciValues) : setCurrentButtons(values)
   }
@@ -36,18 +36,29 @@ export default function App() {
           setMic(prev => !prev)
         }
         recognition.current.onresult = function (event) {
-          var interimTranscripts = "";
-          var transcript = ""
-          for (var i = event.resultIndex; i < event.results.length; i++) {
-            transcript = event.results[i][0].transcript.toLowerCase();
-            transcript = filterSpeech(transcript)
-            if (event.results[i].isFinal) {
-              isTouchScreen.current ? textRef.current = transcript : textRef.current += transcript;
-            } else {
-              interimTranscripts += transcript;
+          if (isTouchScreen.current) {
+            for (var i = 0; i < event.results.length; i++) {
+              var transcript = event.results[i][0].transcript.toLowerCase();
+              transcript = filterSpeech(transcript)
+              if (event.results[i].isFinal) {
+                textRef.current += transcript;
+              }
             }
+            displayRef.current.textContent = textRef.current
           }
-          displayRef.current.textContent = textRef.current + interimTranscripts
+          else {
+            var interimTranscripts = '';
+            for (i = event.resultIndex; i < event.results.length; i++) {
+              transcript = event.results[i][0].transcript.toLowerCase();
+              transcript = filterSpeech(transcript)
+              if (event.results[i].isFinal) {
+                textRef.current += transcript;
+              } else {
+                interimTranscripts += transcript;
+              }
+            }
+            displayRef.current.textContent = textRef.current + interimTranscripts
+          }
         }
       }
       else {
@@ -56,6 +67,7 @@ export default function App() {
     }
     else {
       setMic(prev => !prev)
+
       recognition.current.stop()
     }
   }
