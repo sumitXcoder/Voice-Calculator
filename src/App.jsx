@@ -41,7 +41,7 @@ export default function App() {
               var transcript = event.results[i][0].transcript.toLowerCase();
               transcript = filterSpeech(transcript)
               if (event.results[i].isFinal) {
-                textRef.current += transcript;
+                textRef.current = transcript;
               }
             }
             displayRef.current.textContent = textRef.current
