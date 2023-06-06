@@ -40,9 +40,10 @@ export default function App() {
             for (var i = 0; i < event.results.length; i++) {
               var transcript = event.results[i][0].transcript.toLowerCase();
               transcript = filterSpeech(transcript)
-              textRef.current = transcript;
+              if(event.results[i].isFinal)
+              textRef.current += transcript;
             }
-            displayRef.current.textContent += textRef.current
+            displayRef.current.textContent = textRef.current
           }
           else {
             var interimTranscripts = '';
