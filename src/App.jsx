@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import Buttons from './Buttons'
-import Display, { displayRef} from './Display'
+import Display, { displayRef } from './Display'
 import { values, sciValues, speechFilters } from './Values'
 export default function App() {
   const [currentButtons, setCurrentButtons] = useState(values)
@@ -29,7 +29,7 @@ export default function App() {
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
         recognition.current = new SpeechRecognition()
         recognition.current.continuous = true
-        recognition.current.interimResults = true
+        recognition.current.interimResults = isTouchScreen.current ? true : false
         recognition.current.lang = "en-IN"
         recognition.current.start()
         recognition.current.onstart = () => {
@@ -40,9 +40,7 @@ export default function App() {
             for (var i = 0; i < event.results.length; i++) {
               var transcript = event.results[i][0].transcript.toLowerCase();
               transcript = filterSpeech(transcript)
-              if (event.results[i].isFinal) {
-                textRef.current = transcript;
-              }
+              textRef.current = transcript;
             }
             displayRef.current.textContent = textRef.current
           }
