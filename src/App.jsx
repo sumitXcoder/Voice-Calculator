@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import Buttons from './Buttons'
 import Display, { displayRef } from './Display'
 import { values, sciValues, speechFilters } from './Values'
@@ -8,7 +8,10 @@ export default function App() {
   const [mic, setMic] = useState(false)
   const textRef = useRef("")
   const recognition = useRef(null)
-
+  const isTouchScreen=useRef(null)
+  useEffect(() => {
+    isTouchScreen.current = "ontouchstart" in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0
+  }, [])
   function changeValues() {
     currentButtons === values ? setCurrentButtons(sciValues) : setCurrentButtons(values)
   }
@@ -39,7 +42,7 @@ export default function App() {
             transcript = filterSpeech(transcript)
             if (event.results[i].isFinal) {
               textRef.current += transcript;
-            } else {
+            } else if (!isTouchScreen.current) {
               interimTranscripts += transcript;
             }
           }

@@ -71,12 +71,6 @@ body {
   text-shadow: 0 0 2px white;
 }
 
-
-.calculator .display:focus {
-  transition: .15s;
-  outline: 2px groove #ddd;
-}
-
 .calculator>.buttons {
   font-size: 2em;
   display: grid;
