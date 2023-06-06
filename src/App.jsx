@@ -8,7 +8,7 @@ export default function App() {
   const [mic, setMic] = useState(false)
   const textRef = useRef("")
   const recognition = useRef(null)
-  const isTouchScreen=useRef(null)
+  const isTouchScreen = useRef(null)
   useEffect(() => {
     isTouchScreen.current = "ontouchstart" in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0
   }, [])
@@ -36,13 +36,14 @@ export default function App() {
           setMic(prev => !prev)
         }
         recognition.current.onresult = function (event) {
-          var interimTranscripts = '';
+          var interimTranscripts = "";
+          var transcript = ""
           for (var i = event.resultIndex; i < event.results.length; i++) {
-            var transcript = event.results[i][0].transcript.toLowerCase();
+            transcript = event.results[i][0].transcript.toLowerCase();
             transcript = filterSpeech(transcript)
             if (event.results[i].isFinal) {
-              textRef.current += transcript;
-            } else if (!isTouchScreen.current) {
+              isTouchScreen.current ? textRef.current = transcript : textRef.current += transcript;
+            } else {
               interimTranscripts += transcript;
             }
           }
@@ -55,7 +56,6 @@ export default function App() {
     }
     else {
       setMic(prev => !prev)
-
       recognition.current.stop()
     }
   }

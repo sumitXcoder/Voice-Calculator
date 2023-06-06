@@ -71,6 +71,11 @@ body {
   text-shadow: 0 0 2px white;
 }
 
+
+.calculator .display:focus {
+  outline:none;
+}
+
 .calculator>.buttons {
   font-size: 2em;
   display: grid;
