@@ -8,6 +8,12 @@ export default function App() {
   const [mic, setMic] = useState(false)
   const textRef = useRef("")
   const recognition = useRef(null)
+  const chrome = useRef(null)
+  const isTouchScreen = useRef(null)
+  useEffect(()=>{
+    chrome.current=navigator.userAgent.includes("Chrome")
+    isTouchScreen.current="ontouchstart" in window || navigator.maxTouchPoints>0 || navigator.msMaxTouchPoints
+  },[])
 
   function changeValues() {
     currentButtons === values ? setCurrentButtons(sciValues) : setCurrentButtons(values)
@@ -35,11 +41,11 @@ export default function App() {
         recognition.current.onend = () => {
           setMic(prev => !prev)
         }
-        // var transcript=""
+        
         const text = displayRef.current.textContent
         recognition.current.onresult = function (event) {
           var interimTranscripts = '';
-          if (navigator.userAgent.includes("Chrome")) {
+          if (chrome.current && !isTouchScreen.current) {
             for (var i = event.resultIndex; i < event.results.length; i++) {
               var transcript = event.results[i][0].transcript.toLowerCase();
               transcript = filterSpeech(transcript)
