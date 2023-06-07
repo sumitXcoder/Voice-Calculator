@@ -31,19 +31,25 @@ export default function App() {
         recognition.current.continuous = true
         recognition.current.interimResults = isTouchScreen.current ? true : false
         recognition.current.lang = "en-IN"
+        var isFinal=false
         recognition.current.start()
+        if(isFinal){
+          textRef.current += transcript;
+          displayRef.current.textContent = textRef.current
+        }
         recognition.current.onstart = () => {
           setMic(prev => !prev)
         }
+        recognition.current.onend=()=>{
+          window.alert("end")
+        }
         recognition.current.onresult = function (event) {
           if (isTouchScreen.current) {
-            for (var i = event.resultIndex; i < event.results.length; i++) {
-              var transcript = event.results[i][0].transcript.toLowerCase();
+            // for (var i = event.resultIndex; i < event.results.length; i++) {
+              var transcript = event.results[results.length-1][0].transcript.toLowerCase();
               transcript = filterSpeech(transcript)
-              if(event.results[i].isFinal)
-              textRef.current += transcript;
-            }
-            displayRef.current.textContent = textRef.current
+              isFinal=true
+            // }
           }
           else {
             var interimTranscripts = '';
@@ -64,6 +70,7 @@ export default function App() {
         window.alert("Your browser doesnot support speech recognition :(")
       }
     }
+    
     else {
       setMic(prev => !prev)
 
