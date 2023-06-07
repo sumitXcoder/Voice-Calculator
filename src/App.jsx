@@ -33,7 +33,6 @@ export default function App() {
           setMic(prev => !prev)
         }
         recognition.current.onend = () => {
-          if (mic)
             setMic(prev => !prev)
         }
         const text = displayRef.current.textContent
@@ -56,7 +55,6 @@ export default function App() {
       }
     }
     else {
-      setMic(prev => !prev)
       recognition.current.stop()
     }
   }
