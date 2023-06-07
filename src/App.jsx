@@ -29,31 +29,25 @@ export default function App() {
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
         recognition.current = new SpeechRecognition()
         recognition.current.continuous = true
-        recognition.current.interimResults = isTouchScreen.current ? true : false
+        recognition.current.interimResults = true 
         recognition.current.lang = "en-IN"
-        var isFinal=false
         recognition.current.start()
-        if(isFinal){
-          textRef.current += transcript;
-          displayRef.current.textContent = textRef.current
-        }
         recognition.current.onstart = () => {
           setMic(prev => !prev)
         }
-        recognition.current.onend=()=>{
-          window.alert("end")
-        }
         recognition.current.onresult = function (event) {
           if (isTouchScreen.current) {
-            // for (var i = event.resultIndex; i < event.results.length; i++) {
-              var transcript = event.results[results.length-1][0].transcript.toLowerCase();
+            // for (var i = 0; i < event.results.length; i++) {
+              var transcript = event.results[event.results.length-1][0].transcript.toLowerCase();
               transcript = filterSpeech(transcript)
-              isFinal=true
+              // if(event.results[i].isFinal)
+              textRef.current += transcript;
             // }
+            displayRef.current.textContent = textRef.current
           }
           else {
             var interimTranscripts = '';
-            for (i = event.resultIndex; i < event.results.length; i++) {
+            for (var i = event.resultIndex; i < event.results.length; i++) {
               transcript = event.results[i][0].transcript.toLowerCase();
               transcript = filterSpeech(transcript)
               if (event.results[i].isFinal) {
@@ -70,7 +64,6 @@ export default function App() {
         window.alert("Your browser doesnot support speech recognition :(")
       }
     }
-    
     else {
       setMic(prev => !prev)
 
