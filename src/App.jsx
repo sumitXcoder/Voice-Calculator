@@ -1,16 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
 import Buttons from './Buttons'
 import Display, { displayRef } from './Display'
 import { values, sciValues, speechFilters } from './Values'
+
 export default function App() {
   const [currentButtons, setCurrentButtons] = useState(values)
   const [mic, setMic] = useState(false)
   const textRef = useRef("")
   const recognition = useRef(null)
-  const isTouchScreen = useRef(null)
-  useEffect(() => {
-    isTouchScreen.current = "ontouchstart" in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0
-  }, [])
 
   function changeValues() {
     currentButtons === values ? setCurrentButtons(sciValues) : setCurrentButtons(values)
@@ -36,20 +33,22 @@ export default function App() {
           setMic(prev => !prev)
         }
         recognition.current.onend = () => {
-          setMic(prev => !prev)
+          if (mic)
+            setMic(prev => !prev)
         }
+        const text = displayRef.current.textContent
         recognition.current.onresult = function (event) {
-            var interimTranscripts = '';
-            for (var i = event.resultIndex; i < event.results.length; i++) {
-              var transcript = event.results[i][0].transcript.toLowerCase();
-              transcript = filterSpeech(transcript)
-              if (event.results[i][0].confidence) {
-                textRef.current += transcript;
-              } else {
-                interimTranscripts += transcript;
-              }
+          var interimTranscripts = '';
+          for (var i = event.resultIndex; i < event.results.length; i++) {
+            var transcript = event.results[i][0].transcript.toLowerCase();
+            transcript = filterSpeech(transcript)
+            if (event.results[i][0].confidence) {
+              textRef.current += transcript;
+            } else {
+              interimTranscripts += transcript;
             }
-            displayRef.current.textContent = textRef.current + interimTranscripts
+          }
+          displayRef.current.textContent = text + textRef.current + interimTranscripts
         }
       }
       else {
