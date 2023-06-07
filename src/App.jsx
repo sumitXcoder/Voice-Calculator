@@ -35,13 +35,14 @@ export default function App() {
         recognition.current.onend = () => {
             setMic(prev => !prev)
         }
+        var transcript=""
         const text = displayRef.current.textContent
         recognition.current.onresult = function (event) {
           var interimTranscripts = '';
           for (var i = event.resultIndex; i < event.results.length; i++) {
-            var transcript = event.results[i][0].transcript.toLowerCase();
+            transcript = event.results[i][0].transcript.toLowerCase();
             transcript = filterSpeech(transcript)
-            if (event.results[i][0].confidence) {
+            if (event.results[i][0].confidence>0 && event.results[i].isFinal) {
               textRef.current += transcript;
             } else {
               interimTranscripts += transcript;
