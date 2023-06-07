@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef,useEffect } from 'react'
 import Buttons from './Buttons'
 import Display, { displayRef } from './Display'
 import { values, sciValues, speechFilters } from './Values'
@@ -41,7 +41,7 @@ export default function App() {
         recognition.current.onend = () => {
           setMic(prev => !prev)
         }
-        
+
         const text = displayRef.current.textContent
         recognition.current.onresult = function (event) {
           var interimTranscripts = '';
