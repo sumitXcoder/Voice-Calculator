@@ -37,7 +37,7 @@ export default function App() {
         }
         recognition.current.onresult = function (event) {
           if (isTouchScreen.current) {
-            for (var i = 0; i < event.results.length; i++) {
+            for (var i = event.resultIndex; i < event.results.length; i++) {
               var transcript = event.results[i][0].transcript.toLowerCase();
               transcript = filterSpeech(transcript)
               if(event.results[i].isFinal)
