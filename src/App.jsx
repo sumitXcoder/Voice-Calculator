@@ -33,19 +33,32 @@ export default function App() {
           setMic(prev => !prev)
         }
         recognition.current.onend = () => {
-            setMic(prev => !prev)
+          setMic(prev => !prev)
         }
-        var transcript=""
+        // var transcript=""
         const text = displayRef.current.textContent
         recognition.current.onresult = function (event) {
           var interimTranscripts = '';
-          for (var i = event.resultIndex; i < event.results.length; i++) {
-            transcript = event.results[i][0].transcript.toLowerCase();
-            transcript = filterSpeech(transcript)
-            if (event.results[i][0].confidence>0 && event.results[i].isFinal) {
-              textRef.current += transcript;
-            } else {
-              interimTranscripts += transcript;
+          if (navigator.userAgent.includes("Chrome")) {
+            for (var i = event.resultIndex; i < event.results.length; i++) {
+              var transcript = event.results[i][0].transcript.toLowerCase();
+              transcript = filterSpeech(transcript)
+              if (event.results[i].isFinal) {
+                textRef.current += transcript;
+              } else {
+                interimTranscripts += transcript;
+              }
+            }
+          }
+          else {
+            for (i = event.resultIndex; i < event.results.length; i++) {
+              transcript = event.results[i][0].transcript.toLowerCase();
+              transcript = filterSpeech(transcript)
+              if (event.results[i][0].confidence > 0) {
+                textRef.current += transcript;
+              } else {
+                interimTranscripts += transcript;
+              }
             }
           }
           displayRef.current.textContent = text + textRef.current + interimTranscripts
