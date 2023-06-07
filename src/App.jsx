@@ -39,37 +39,17 @@ export default function App() {
           setMic(prev => !prev)
         }
         recognition.current.onresult = function (event) {
-          if (isTouchScreen.current) {
-            // var transcript = event.results[event.results.length - 1][0].transcript.toLowerCase();
-            // transcript = filterSpeech(transcript)
-            // if (event.results[event.results.length - 1][0].confidence > 0)
-            //   textRef.current += transcript;
-            // displayRef.current.textContent = textRef.current
             var interimTranscripts = '';
             for (var i = event.resultIndex; i < event.results.length; i++) {
               var transcript = event.results[i][0].transcript.toLowerCase();
               transcript = filterSpeech(transcript)
-              if (event.results[i][0].confidence > 0) {
+              if (event.results[i][0].confidence) {
                 textRef.current += transcript;
               } else {
                 interimTranscripts += transcript;
               }
             }
             displayRef.current.textContent = textRef.current + interimTranscripts
-          }
-          else {
-            var interimTranscripts = '';
-            for (var i = event.resultIndex; i < event.results.length; i++) {
-              transcript = event.results[i][0].transcript.toLowerCase();
-              transcript = filterSpeech(transcript)
-              if (event.results[i].isFinal) {
-                textRef.current += transcript;
-              } else {
-                interimTranscripts += transcript;
-              }
-            }
-            displayRef.current.textContent = textRef.current + interimTranscripts
-          }
         }
       }
       else {
