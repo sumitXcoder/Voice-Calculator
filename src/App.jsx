@@ -47,7 +47,7 @@ export default function App() {
             // displayRef.current.textContent = textRef.current
             var interimTranscripts = '';
             for (var i = event.resultIndex; i < event.results.length; i++) {
-              transcript = event.results[i][0].transcript.toLowerCase();
+              var transcript = event.results[i][0].transcript.toLowerCase();
               transcript = filterSpeech(transcript)
               if (event.results[i][0].confidence > 0) {
                 textRef.current += transcript;
