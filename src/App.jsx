@@ -36,7 +36,7 @@ export default function App() {
           setMic(prev => !prev)
         }
         recognition.current.onend=()=>{
-          window.alert("stopped")
+          setMic(prev => !prev)
         }
         recognition.current.onresult = function (event) {
           if (isTouchScreen.current) {
@@ -67,7 +67,6 @@ export default function App() {
     }
     else {
       setMic(prev => !prev)
-
       recognition.current.stop()
     }
   }
