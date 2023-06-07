@@ -35,14 +35,15 @@ export default function App() {
         recognition.current.onstart = () => {
           setMic(prev => !prev)
         }
+        recognition.current.onend=()=>{
+          window.alert("stopped")
+        }
         recognition.current.onresult = function (event) {
           if (isTouchScreen.current) {
-            // for (var i = 0; i < event.results.length; i++) {
               var transcript = event.results[event.results.length-1][0].transcript.toLowerCase();
               transcript = filterSpeech(transcript)
               if(event.results[event.results.length-1][0].confidence >0)
               textRef.current += transcript;
-            // }
             displayRef.current.textContent = textRef.current
           }
           else {
