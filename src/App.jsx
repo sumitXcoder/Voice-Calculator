@@ -70,7 +70,7 @@ export default function App() {
               }
             }
           }
-          displayRef.current.textContent = text + textRef.current + interimTranscripts
+          displayRef.current.textContent = textRef.current + interimTranscripts
         }
       }
       else {
