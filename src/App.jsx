@@ -4,7 +4,7 @@ import Display, { displayRef } from './Display'
 import { values, sciValues, speechFilters } from './Values'
 
 export default function App() {
-  
+
   const [currentButtons, setCurrentButtons] = useState(values)
   const [mic, setMic] = useState(false)
   const textRef = useRef("")
@@ -57,6 +57,7 @@ export default function App() {
                 interimTranscripts += transcript;
               }
             }
+            displayRef.current.textContent = textRef.current + interimTranscripts
           }
           else {
             for (i = event.resultIndex; i < event.results.length; i++) {
