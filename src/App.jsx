@@ -1,4 +1,4 @@
-import React, { useState, useRef,useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import Buttons from './Buttons'
 import Display, { displayRef } from './Display'
 import { values, sciValues, speechFilters } from './Values'
@@ -12,10 +12,10 @@ export default function App() {
   const chrome = useRef(null)
   const isTouchScreen = useRef(null)
 
-  useEffect(()=>{
-    chrome.current=navigator.userAgent.includes("Chrome")
-    isTouchScreen.current="ontouchstart" in window || navigator.maxTouchPoints>0 || navigator.msMaxTouchPoints
-  },[])
+  useEffect(() => {
+    chrome.current = navigator.userAgent.includes("Chrome")
+    isTouchScreen.current = "ontouchstart" in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints
+  }, [])
 
   function changeValues() {
     currentButtons === values ? setCurrentButtons(sciValues) : setCurrentButtons(values)
@@ -69,8 +69,8 @@ export default function App() {
                 interimTranscripts += transcript;
               }
             }
+            displayRef.current.textContent = isTouchScreen.current ? text : "" + textRef.current + interimTranscripts
           }
-          displayRef.current.textContent = textRef.current + interimTranscripts
         }
       }
       else {
