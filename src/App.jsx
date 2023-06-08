@@ -69,7 +69,8 @@ export default function App() {
                 interimTranscripts += transcript;
               }
             }
-            displayRef.current.textContent = isTouchScreen.current ? text : "" + textRef.current + interimTranscripts
+            isTouchScreen.current ? displayRef.current.textContent = text + textRef.current :
+              displayRef.current.textContent = textRef.current + interimTranscripts
           }
         }
       }
