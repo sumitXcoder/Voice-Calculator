@@ -4,12 +4,14 @@ import Display, { displayRef } from './Display'
 import { values, sciValues, speechFilters } from './Values'
 
 export default function App() {
+  
   const [currentButtons, setCurrentButtons] = useState(values)
   const [mic, setMic] = useState(false)
   const textRef = useRef("")
   const recognition = useRef(null)
   const chrome = useRef(null)
   const isTouchScreen = useRef(null)
+
   useEffect(()=>{
     chrome.current=navigator.userAgent.includes("Chrome")
     isTouchScreen.current="ontouchstart" in window || navigator.maxTouchPoints>0 || navigator.msMaxTouchPoints
