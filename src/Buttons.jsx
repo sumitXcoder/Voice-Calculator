@@ -104,7 +104,6 @@ export default function Buttons({ buttons, mic, textRef }) {
                 case "C":
                     expression.textContent = ""
                     positionRef.current = 0
-                    if (mic)
                         textRef.current = ""
                     break
 
@@ -122,7 +121,6 @@ export default function Buttons({ buttons, mic, textRef }) {
                     result % 1 !== 0 ? expression.textContent = result.toPrecision(3) : expression.textContent = result
                     positionRef.current = expression.textContent.length
                     setCaretPosition(positionRef.current)
-                    if (mic)
                         textRef.current = expression.textContent
                     break
 
@@ -170,7 +168,6 @@ export default function Buttons({ buttons, mic, textRef }) {
                         expression.textContent += value
                     }
                     setCaretPosition(positionRef.current + value.length)
-                    if (mic)
                         textRef.current = expression.textContent
                     break
             }
