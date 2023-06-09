@@ -73,7 +73,7 @@ export default function App() {
                 interimTranscripts += transcript;
               }
             }
-            if (!confidence)
+            if (isTouchScreen.current || !confidence)
               displayRef.current.textContent = textRef.current + interimTranscripts
           }
         }
