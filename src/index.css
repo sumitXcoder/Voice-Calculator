@@ -91,7 +91,7 @@ body {
 .calculator .btn {
   position: relative;
   font-size: inherit;
-  font-weight: 200;
+  font-weight: 300;
   background-image: linear-gradient(-45deg, #d5d5d5, #fafafa, #d5d5d5);
   border: none;
   border-radius: .2em;

@@ -43,33 +43,37 @@ export default function App() {
         recognition.current.onend = () => {
           setMic(prev => !prev)
         }
-
-        const text = displayRef.current.textContent
         recognition.current.onresult = function (event) {
           var interimTranscripts = '';
+          var confidence = 0
           if (chrome.current && !isTouchScreen.current) {
             for (var i = event.resultIndex; i < event.results.length; i++) {
               var transcript = event.results[i][0].transcript.toLowerCase();
               transcript = filterSpeech(transcript)
+              confidence = 0
               if (event.results[i].isFinal) {
                 textRef.current += transcript;
+                confidence = 1
               } else {
                 interimTranscripts += transcript;
               }
             }
-            displayRef.current.textContent = textRef.current + interimTranscripts
+            if (!confidence)
+              displayRef.current.textContent = textRef.current + interimTranscripts
+            confidence = 0
           }
           else {
             for (i = event.resultIndex; i < event.results.length; i++) {
               transcript = event.results[i][0].transcript.toLowerCase();
               transcript = filterSpeech(transcript)
-              if (event.results[i][0].confidence > 0) {
+              confidence = event.results[i][0].confidence
+              if (confidence > 0) {
                 textRef.current += transcript;
               } else {
                 interimTranscripts += transcript;
               }
             }
-            // isTouchScreen.current ? displayRef.current.textContent = text + textRef.current :
+            if (!confidence)
               displayRef.current.textContent = textRef.current + interimTranscripts
           }
         }
